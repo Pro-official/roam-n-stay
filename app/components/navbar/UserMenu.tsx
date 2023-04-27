@@ -5,6 +5,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
+import useToggleMenu from "@/app/hooks/useToggleMenu";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useRentModal from "@/app/hooks/useRentModal";
@@ -21,14 +22,15 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const router = useRouter();
 
   const loginModal = useLoginModal();
+  const toggleMenu = useToggleMenu();
   const registerModal = useRegisterModal();
   const rentModal = useRentModal();
 
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleOpen = useCallback(() => {
-    setIsOpen((value) => !value);
-  }, []);
+  const toggleOpen = () => {
+    if (toggleMenu.isOpen) {
+      toggleMenu.onClose();
+    } else toggleMenu.onOpen();
+  };
 
   const onRent = useCallback(() => {
     if (!currentUser) {
@@ -82,15 +84,15 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           </div>
         </div>
       </div>
-      {isOpen && (
+      {toggleMenu.isOpen && (
         <div
           className="
             absolute 
             rounded-xl 
             shadow-md
             w-[40vw]
-            md:w-3/4 
-            bg-white 
+            md:w-[15vw]
+            bg-gray-100 
             overflow-hidden 
             right-0 
             top-12 
