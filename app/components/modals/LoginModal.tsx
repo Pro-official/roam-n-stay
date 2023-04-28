@@ -33,6 +33,7 @@ const LoginModal = () => {
     },
   });
 
+  // Modal submit function
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
@@ -54,6 +55,7 @@ const LoginModal = () => {
     });
   };
 
+  // Menu toggle button
   const onToggle = useCallback(() => {
     loginModal.onClose();
     registerModal.onOpen();

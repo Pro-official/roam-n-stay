@@ -35,12 +35,12 @@ const RentModal = () => {
   const [step, setStep] = useState(STEPS.CATEGORY);
 
   const {
-    register,
-    handleSubmit,
-    setValue,
-    watch,
-    formState: { errors },
     reset,
+    watch,
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
       category: "",
@@ -55,18 +55,15 @@ const RentModal = () => {
     },
   });
 
+  const imageSrc = watch("imageSrc");
   const location = watch("location");
   const category = watch("category");
-  const guestCount = watch("guestCount");
   const roomCount = watch("roomCount");
+  const guestCount = watch("guestCount");
   const bathroomCount = watch("bathroomCount");
-  const imageSrc = watch("imageSrc");
 
   const Map = useMemo(
-    () =>
-      dynamic(() => import("../Map"), {
-        ssr: false,
-      }),
+    () => dynamic(() => import("../Map"), { ssr: false }),
     [location]
   );
 
@@ -78,18 +75,12 @@ const RentModal = () => {
     });
   };
 
-  const onBack = () => {
-    setStep((value) => value - 1);
-  };
+  const onBack = () => setStep((value) => value - 1);
+  const onNext = () => setStep((value) => value + 1);
 
-  const onNext = () => {
-    setStep((value) => value + 1);
-  };
-
+  // List rent function
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    if (step !== STEPS.PRICE) {
-      return onNext();
-    }
+    if (step !== STEPS.PRICE) return onNext();
 
     setIsLoading(true);
 
@@ -111,18 +102,13 @@ const RentModal = () => {
   };
 
   const actionLabel = useMemo(() => {
-    if (step === STEPS.PRICE) {
-      return "Create";
-    }
+    if (step === STEPS.PRICE) return "Create";
 
     return "Next";
   }, [step]);
 
   const secondaryActionLabel = useMemo(() => {
-    if (step === STEPS.CATEGORY) {
-      return undefined;
-    }
-
+    if (step === STEPS.CATEGORY) return undefined;
     return "Back";
   }, [step]);
 

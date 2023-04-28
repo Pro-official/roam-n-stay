@@ -1,24 +1,24 @@
 "use client";
 
 import axios from "axios";
-import { AiFillGithub } from "react-icons/ai";
 import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
-import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
+import { AiFillGithub } from "react-icons/ai";
+import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 import useLoginModal from "@/app/hooks/useLoginModal";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 
 import Modal from "./Modal";
-import Input from "../inputs/Input";
-import Heading from "../Heading";
 import Button from "../Button";
+import Heading from "../Heading";
+import Input from "../inputs/Input";
 
 const RegisterModal = () => {
-  const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -33,6 +33,7 @@ const RegisterModal = () => {
     },
   });
 
+  // Registration function
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
