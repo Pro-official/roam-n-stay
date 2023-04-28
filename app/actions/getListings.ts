@@ -17,9 +17,9 @@ export default async function getListings(
   try {
     const {
       userId,
-      roomCount, 
-      guestCount, 
-      bathroomCount, 
+      roomCount,
+      guestCount,
+      bathroomCount,
       locationValue,
       startDate,
       endDate,
@@ -28,35 +28,12 @@ export default async function getListings(
 
     let query: any = {};
 
-    if (userId) {
-      query.userId = userId;
-    }
-
-    if (category) {
-      query.category = category;
-    }
-
-    if (roomCount) {
-      query.roomCount = {
-        gte: +roomCount
-      }
-    }
-
-    if (guestCount) {
-      query.guestCount = {
-        gte: +guestCount
-      }
-    }
-
-    if (bathroomCount) {
-      query.bathroomCount = {
-        gte: +bathroomCount
-      }
-    }
-
-    if (locationValue) {
-      query.locationValue = locationValue;
-    }
+    if (userId) query.userId = userId;
+    if (category) query.category = category;
+    if (roomCount) query.roomCount = { gte: +roomCount }
+    if (guestCount) query.guestCount = { gte: +guestCount }
+    if (bathroomCount) query.bathroomCount = { gte: +bathroomCount }
+    if (locationValue) query.locationValue = locationValue;
 
     if (startDate && endDate) {
       query.NOT = {
